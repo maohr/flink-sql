@@ -1,0 +1,38 @@
+.CodeMirror {
+  height: 600px;
+  font-size: 12px !important;
+}
+.CodeMirror-hints, .CodeMirror-line,{
+  font-family: Menlo, Monaco, "Courier New", monospace!important;
+  border-radius: 0;
+}
+.CodeMirror-hints {
+  border-color: rgb(200, 200, 200);
+  padding: 0;
+  color: #212121;
+  background-color: rgb(243, 243, 243);
+  .CodeMirror-hint {
+    min-width: 400px;
+    height: 20px;
+    padding: 1px 0 1px 16px;
+    line-height: 20px;
+    &:hover {
+      background-color: #f1f1f1;
+    }
+    &.CodeMirror-hint-active {
+      background-color: #d5ebff;
+      color: #212121;
+    }
+    .hint-desc {
+      float: right;
+      margin-right: 12px;
+      color: #636363;
+      font-size: 90%;
+      display: inline-block;
+      max-width: 270px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

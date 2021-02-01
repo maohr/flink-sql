@@ -82,6 +82,7 @@
 
     Completion.prototype = {
         close: function() {
+            // return;
             if (!this.active()) return;
             this.cm.state.completionActive = null;
             this.tick = null;
@@ -101,9 +102,24 @@
         pick: function(data, i) {
             var completion = data.list[i],
                 self = this;
+            let completionArr = [];
+            completionArr = completion.split("#");
+            completion = completionArr[0];
             this.cm.operation(function() {
                 if (completion.hint) completion.hint(self.cm, data, completion);
-                else self.cm.replaceRange(getText(completion), completion.from || data.from, completion.to || data.to, "complete");
+                else {
+                    console.log(completion, data);
+                    self.cm.replaceRange(getText(completion), completion.from || data.from, completion.to || data.to, "complete");
+                    const ch = (completion.from || data.from).ch;
+                    const line = (completion.from || data.from).line;
+                    if (completion.includes("(")) {
+                        const index = completion.indexOf("(") + 1;
+                        self.cm.setCursor({
+                            line: line,
+                            ch: index + ch
+                        });
+                    }
+                }
                 CodeMirror.signal(data, "pick", completion);
                 self.cm.scrollIntoView();
             });
@@ -256,6 +272,7 @@
         this.selectedHint = data.selectedHint || 0;
 
         var completions = data.list;
+        console.log(completions, "completions");
         for (var i = 0; i < completions.length; ++i) {
             var elt = hints.appendChild(ownerDocument.createElement("li")),
                 cur = completions[i];
@@ -263,7 +280,21 @@
             if (cur.className != null) className = cur.className + " " + className;
             elt.className = className;
             if (cur.render) cur.render(elt, data, cur);
-            else elt.appendChild(ownerDocument.createTextNode(cur.displayText || getText(cur)));
+            else {
+                const plt = ownerDocument.createElement("span");
+                const slt = ownerDocument.createElement("span");
+                plt.className = "hint-text";
+                slt.className = "hint-desc";
+                if (cur.includes("#")) {
+                    const textArr = cur.split("#");
+                    plt.appendChild(ownerDocument.createTextNode(textArr[0]));
+                    slt.appendChild(ownerDocument.createTextNode(textArr[1]));
+                } else {
+                    plt.appendChild(ownerDocument.createTextNode(cur.displayText || getText(cur)));
+                }
+                elt.appendChild(plt);
+                elt.appendChild(slt);
+            }
             elt.hintId = i;
         }
 

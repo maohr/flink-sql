@@ -2,7 +2,7 @@
     <div id="app">
         <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane v-for="pane in tabList" :key="pane.name" :label="pane.label" :name="pane.name" :closable="tabList.length > 1">
-                <code-area :content="pane.content" :key="pane.name" />
+                <code-area :content="pane.curContent" :key="pane.name" />
             </el-tab-pane>
         </el-tabs>
     </div>

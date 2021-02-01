@@ -192,7 +192,15 @@
             blockCommentStart: "/*",
             blockCommentEnd: "*/",
             lineComment: support.commentSlashSlash ? "//" : support.commentHash ? "#" : "--",
-            closeBrackets: "()[]{}''\"\"``"
+            closeBrackets: "()[]{}''\"\"``",
+
+            electricInput: /^\s*(?:case .*?:|default:|\{|\})$/,
+            blockCommentContinue: null,
+            fold: "flink-sql",
+
+            helperType: "json",
+            jsonldMode: true,
+            jsonMode: true
         };
     });
 

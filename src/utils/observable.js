@@ -8,7 +8,8 @@ const observable = Vue.observable({
         {
             label: "Run#0",
             name: uid,
-            content: `CREATE TABLE user_log (                      
+            content: "",
+            curContent: `CREATE TABLE user_log (                      
 
     user_id VARCHAR,
 
@@ -23,7 +24,7 @@ const observable = Vue.observable({
     connector.type = '',
 
 );
-
+select * from user_log as t where;
 
 CREATE TABLE pvuv_sink1 (
 
@@ -38,7 +39,7 @@ CREATE TABLE pvuv_sink1 (
     connector.type = '',
 
 );
-
+select * from (select * from user_log as t where t.user_id) as m where m
 `,
             rangeContent: "",
             instance: null
@@ -106,7 +107,7 @@ CREATE TABLE pvuv_sink1 (
         "where ",
         "when ",
         "with ",
-        "length() ",
+        "length() #简介",
         "reverse() ",
         "concat(,) ",
         "concat_ws(,) ",
@@ -132,8 +133,8 @@ CREATE TABLE pvuv_sink1 (
         "max() ",
         "min() ",
         "avg() "
-    ],
-    autoComplete: true
+    ], // 关键字提示，核心= > 切换不同的关键字来达到提示不同数据的目的
+    autoComplete: true //是否开启自动提示
 });
 
 const action = {
